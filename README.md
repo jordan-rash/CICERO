@@ -1,5 +1,3 @@
-# CICERO 0.3.0
-
 <div align="center">
 
   [![Status](https://img.shields.io/badge/status-active-success.svg)](https://github.com/stjude/CICERO)
@@ -8,33 +6,67 @@
 
 </div>
 
-CICERO (Clipped-reads Extended for RNA Optimization) is an assembly-based algorithm to detect diverse classes
-of driver gene fusions from RNA-seq.
 
 <br />
+<br />
+
 <p align="center">
-  <img alt="Overview of CICERO algorithm which consists of fusion detection through analysis of candidate SV breakpoints and splice junction, fusion annotation, and ranking." src="docs/CICERO.png"/>
-</p>
-<br />
+  <h1 align="center">
+    CICERO 0.3.0
+  </h1>
 
-## 📝 Table of Contents
-- [Running CICERO](#running)
-- [Dependencies](#dependencies)
-- [Running with Docker](#docker)
-- [Running with St. Jude Cloud](#cloud)
-- [Generate Junctions](#junctions)
-- [Reference Files](#reference)
-- [Supported Genomes](#genomes)
-- [Demo](#demo)
-- [Citation](#citation)
-- [License](#license)
+  <p align="center">
+    <a href="https://actions-badge.atrox.dev/stjudecloud/ngsderive/goto" target="_blank">
+      <img alt="Actions: CI Status"
+          src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fstjudecloud%2Fngsderive%2Fbadge&style=flat" />
+    </a>
+    <a href="https://pypi.org/project/ngsderive/" target="_blank">
+      <img alt="PyPI"
+          src="https://img.shields.io/pypi/v/ngsderive?color=orange">
+    </a>
+    <a href="https://pypi.python.org/pypi/ngsderive/" target="_blank">
+      <img alt="PyPI: Downloads"
+          src="https://img.shields.io/pypi/dm/ngsderive?color=orange">
+    </a>
+    <a href="https://pypi.python.org/pypi/ngsderive/" target="_blank">
+      <img alt="PyPI: Downloads"
+          src="https://img.shields.io/pypi/pyversions/ngsderive?color=orange">
+    </a>
+    <a href="https://github.com/stjudecloud/ngsderive/blob/master/LICENSE.md" target="_blank">
+    <img alt="License: MIT"
+          src="https://img.shields.io/badge/License-MIT-blue.svg" />
+    </a>
+  </p>
+
+
+  <p align="center">
+    CICERO (Clipped-reads Extended for RNA Optimization) is an assembly-based algorithm to detect diverse classes
+    of driver gene fusions from RNA-seq.
+    <br />
+    <a href="https://stjudecloud.github.io/cicero/"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/stjudecloud/cicero/issues/new?assignees=&labels=&template=feature_request.md&title=Descriptive%20Title&labels=enhancement">Request Feature</a>
+    ·
+    <a href="https://github.com/stjudecloud/cicero/issues/new?assignees=&labels=&template=bug_report.md&title=Descriptive%20Title&labels=bug">Report Bug</a>
+    ·
+    ⭐ Consider starring the repo! ⭐
+    <br />
+  </p>
+</p>
+---  
+  <p align="center">
+   <img alt="Overview of CICERO algorithm which consists of fusion detection through analysis of candidate SV breakpoints and splice junction, fusion annotation, and ranking." src="CICERO.png"/>
+  </p>
+
+
 
 ## Running CICERO <a name="running"></a>
 Add the `src/scripts` directory to your system `PATH` variable. Add the `src/perllib` and `dependencies/lib/perl` directories to your system `PERL5LIB` variable. 
 
 Then invoke the CICERO wrapper as
 ```
-Cicero.sh [-n ncores] -b bamfile -g genome -r refdir -o outdir [-j junctions] [-t threshold] [-s sc_cutoff] [-c sc_shift] [-p]
+cicero.sh [-n ncores] -b bamfile -g genome -r refdir -o outdir [-j junctions] [-t threshold] [-s sc_cutoff] [-c sc_shift] [-p]
 ```
 
 - `ncores` is the number of cores to be run on (with [GNU parallel](https://www.gnu.org/software/parallel/)).
@@ -128,7 +160,7 @@ A demo of CICERO can be found at the following location:
 Tian, L., Li, Y., Edmonson, M.N. et al. CICERO: a versatile method for detecting complex and diverse driver fusions using cancer RNA sequencing data. Genome Biol 21, 126 (2020). https://doi.org/10.1186/s13059-020-02043-x
 
 ## License <a name="license"></a>
-Copyright 2019 St. Jude Children's Research Hospital
+Copyright 2020 St. Jude Children's Research Hospital
 
 Licensed under a modified version of the Apache License, Version 2.0
 (the "License") for academic research use only; you may not use this
