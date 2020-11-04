@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="CICERO (Clipped-reads Extended for RNA Optimization) is an assembly-based algorithm to detect diverse classes of driver gene fusions from RNA-seq.">
+        <meta name="author" content="St. Jude Cloud">
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>CICERO - St. Jude</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/purebasic.min.css">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body class="homepage">
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">CICERO - St. Jude</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem active">
+                                <a href="." class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Subcommands <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="subcommands/installation/" class="dropdown-item">installation</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" class="nav-link disabled">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="subcommands/installation/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/stjude/CICERO/edit/master/docs/index.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#running-cicero" class="nav-link">Running CICERO </a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#dependencies" class="nav-link">Dependencies </a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#running-with-docker" class="nav-link">Running with Docker </a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#running-with-st-jude-cloud" class="nav-link">Running with St. Jude Cloud </a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#generate-junctions-file-with-rnapeg" class="nav-link">Generate junctions file with RNApeg </a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#downloading-reference-files" class="nav-link">Downloading reference files </a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#supported-genome-version" class="nav-link">Supported Genome Version </a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#demo" class="nav-link">Demo </a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#citation" class="nav-link">Citation </a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#license" class="nav-link">License </a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<div align="center">
+
+  [![Status](https://img.shields.io/badge/status-active-success.svg)](https://github.com/stjude/CICERO)
+  [![GitHub issues](https://img.shields.io/github/issues/stjude/CICERO)](https://github.com/stjude/CICERO/issues)
+  [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/stjude/CICERO)](https://github.com/stjude/CICERO/pulls)
+
+</div>
+
+<p><br />
+<br /></p>
+<p align="center">
+  <h1 align="center">
+    CICERO 0.3.0
+  </h1>
+
+  <p align="center">
+    <a href="https://actions-badge.atrox.dev/stjudecloud/ngsderive/goto" target="_blank">
+      <img alt="Actions: CI Status"
+          src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fstjudecloud%2Fngsderive%2Fbadge&style=flat" />
+    </a>
+    <a href="https://pypi.org/project/ngsderive/" target="_blank">
+      <img alt="PyPI"
+          src="https://img.shields.io/pypi/v/ngsderive?color=orange">
+    </a>
+    <a href="https://pypi.python.org/pypi/ngsderive/" target="_blank">
+      <img alt="PyPI: Downloads"
+          src="https://img.shields.io/pypi/dm/ngsderive?color=orange">
+    </a>
+    <a href="https://pypi.python.org/pypi/ngsderive/" target="_blank">
+      <img alt="PyPI: Downloads"
+          src="https://img.shields.io/pypi/pyversions/ngsderive?color=orange">
+    </a>
+    <a href="https://github.com/stjudecloud/ngsderive/blob/master/LICENSE.md" target="_blank">
+    <img alt="License: MIT"
+          src="https://img.shields.io/badge/License-MIT-blue.svg" />
+    </a>
+  </p>
+
+
+  <p align="center">
+    CICERO (Clipped-reads Extended for RNA Optimization) is an assembly-based algorithm to detect diverse classes
+    of driver gene fusions from RNA-seq.
+    <br />
+    <a href="https://stjudecloud.github.io/cicero/"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/stjudecloud/cicero/issues/new?assignees=&labels=&template=feature_request.md&title=Descriptive%20Title&labels=enhancement">Request Feature</a>
+    ·
+    <a href="https://github.com/stjudecloud/cicero/issues/new?assignees=&labels=&template=bug_report.md&title=Descriptive%20Title&labels=bug">Report Bug</a>
+    ·
+    ⭐ Consider starring the repo! ⭐
+    <br />
+  </p>
+</p>
+<hr />
+<p align="center">
+   <img alt="Overview of CICERO algorithm which consists of fusion detection through analysis of candidate SV breakpoints and splice junction, fusion annotation, and ranking." src="CICERO.png"/>
+  </p>
+
+<h2 id="running-cicero">Running CICERO <a name="running"></a></h2>
+<p>Add the <code>src/scripts</code> directory to your system <code>PATH</code> variable. Add the <code>src/perllib</code> and <code>dependencies/lib/perl</code> directories to your system <code>PERL5LIB</code> variable. </p>
+<p>Then invoke the CICERO wrapper as</p>
+<pre><code>cicero.sh [-n ncores] -b bamfile -g genome -r refdir -o outdir [-j junctions] [-t threshold] [-s sc_cutoff] [-c sc_shift] [-p]
+</code></pre>
+<ul>
+<li><code>ncores</code> is the number of cores to be run on (with <a href="https://www.gnu.org/software/parallel/">GNU parallel</a>).</li>
+<li><code>bamfile</code> is the input bamfile mapped to human genome builds GRCh37-lite or GRCh38_no_alt. <a href="mailto:liqing.tian@stjude.org">Contact us</a> if your bam is based on other reference version.</li>
+<li><code>genome</code> is either <code>GRCh37-lite</code> or <code>GRCh38_no_alt</code>. CICERO only support the two human reference genome versions.</li>
+<li><code>refdir</code> is the reference file directory specific to CICERO. See <a href="#reference">Reference Files</a> below.</li>
+<li><code>junctions</code> is the junctions file output from RNApeg. See <a href="#junctions">Generate Junctions</a> below. CICERO can detect fusion by analysis of splice junction reads. If this option is omitted, fusions generated by small deletions may be missed as these events may lack the soft-clipped reads.</li>
+</ul>
+<p>The final CICERO fusion result file will be located at <code>&lt;outdir&gt;/CICERO_DATADIR/&lt;sample name&gt;/final_fusions.txt</code>. Use the following <a href="https://www.stjude.cloud/docs/guides/genomics-platform/analyzing-data/rapid-rnaseq/">guide</a> to interpret the results.</p>
+<p>To visualize CICERO fusion output you can load the final fusion output file at https://proteinpaint.stjude.org/FusionEditor/.</p>
+<h2 id="dependencies">Dependencies <a name="dependencies"></a></h2>
+<ul>
+<li><a href="https://www.gnu.org/software/parallel/">GNU parallel</a></li>
+<li><a href="http://www.htslib.org/doc/samtools-1.3.1.html">Samtools 1.3.1</a></li>
+<li><a href="https://www.ncbi.nlm.nih.gov/pubmed/10508846">Cap3</a></li>
+<li><a href="https://genome.ucsc.edu/goldenpath/help/blatSpec.html">Blat</a></li>
+<li>Java 1.8.0</li>
+<li>Perl 5.10.1 with libraries:<ul>
+<li>base</li>
+<li>Bio</li>
+<li>Carp</li>
+<li>Compress</li>
+<li>Cwd</li>
+<li>Data</li>
+<li>DBI</li>
+<li>diagnostics</li>
+<li>Digest</li>
+<li>English</li>
+<li>enum</li>
+<li>Exporter</li>
+<li>File</li>
+<li>FileHandle</li>
+<li>List</li>
+<li>POSIX</li>
+<li>strict</li>
+<li>Sys</li>
+<li>Tree</li>
+<li>warnings</li>
+</ul>
+</li>
+</ul>
+<h2 id="running-with-docker">Running with Docker <a name="docker"></a></h2>
+<p>CICERO can be run with Docker. To begin, build the Docker image using the Dockerfile in this repository. </p>
+<pre><code>docker build -t stjude/cicero:0.3.0 .
+</code></pre>
+<p>Then invoke the CICERO wrapper using Docker.</p>
+<pre><code>docker run -v &lt;path to reference directory&gt;:/reference stjude/cicero:0.3.0 Cicero.sh [-n cores] -b &lt;bam file path&gt; -g &lt;genome, e.g. GRCh37-lite&gt; -r /reference -o &lt;output directory&gt; [-j junctions file] [-p] [-s int] [-t int] [-c int]
+</code></pre>
+<h2 id="running-with-st-jude-cloud">Running with St. Jude Cloud <a name="cloud"></a></h2>
+<p>CICERO is integrated in the St. Jude Cloud Rapid RNA-Seq workflow. To run CICERO in St. Jude Cloud, access the tool through the <a href="https://platform.stjude.cloud/workflows/rapid_rna-seq">platform page</a>. Documentation
+for running and interpreting results is available in the <a href="https://stjudecloud.github.io/docs/guides/genomics-platform/analyzing-data/rapid-rnaseq/">user guide</a>.</p>
+<h2 id="generate-junctions-file-with-rnapeg">Generate junctions file with RNApeg <a name="junctions"></a></h2>
+<p>RNApeg is required to generate a junctions file for use by CICERO. You can get RNApeg from both Docker and Singularity. Once RNApeg is complete, the <code>*.junctions.tab.shifted.tab</code> file can be provided to CICERO using the <code>-j</code> argument. </p>
+<h3 id="running-rnapeg-via-docker">Running RNApeg via Docker:</h3>
+<pre><code>docker run -v &lt;outdir&gt;:/results mnedmonson/public:rnapeg RNApeg.sh -b bamfile -f fasta -r refflat
+</code></pre>
+<h3 id="running-rnapeg-via-singularity">Running RNApeg via Singularity:</h3>
+<pre><code>singularity run --bind &lt;outdir&gt;:/results docker://mnedmonson/public:rnapeg RNApeg.sh -b bamfile -f fasta -r refflat
+</code></pre>
+<h2 id="downloading-reference-files">Downloading reference files <a name="reference"></a></h2>
+<p>Reference files are required to run CICERO. They can be found at the following location:
+* GRCh37-lite: https://doi.org/10.5281/zenodo.3817656
+* GRCh38_no_alt: https://doi.org/10.5281/zenodo.3894739</p>
+<h2 id="supported-genome-version">Supported Genome Version <a name="genomes"></a></h2>
+<p>CICERO currently supports <code>GRCh37-lite</code> and <code>GRCh38_no_alt</code>. </p>
+<h2 id="demo">Demo <a name="demo"></a></h2>
+<p>A demo of CICERO can be found at the following location:
+* https://www.stjuderesearch.org/site/lab/zhang/cicero</p>
+<h2 id="citation">Citation <a name="citation"></a></h2>
+<p>Tian, L., Li, Y., Edmonson, M.N. et al. CICERO: a versatile method for detecting complex and diverse driver fusions using cancer RNA sequencing data. Genome Biol 21, 126 (2020). https://doi.org/10.1186/s13059-020-02043-x</p>
+<h2 id="license">License <a name="license"></a></h2>
+<p>Copyright 2020 St. Jude Children's Research Hospital</p>
+<p>Licensed under a modified version of the Apache License, Version 2.0
+(the "License") for academic research use only; you may not use this
+file except in compliance with the License. To inquire about commercial
+use, please contact the St. Jude Office of Technology Licensing at
+scott.elmer@stjude.org.</p>
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>© 2020 St. Jude Children's Research Hospital</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
+
+<!--
+MkDocs version : 1.1.2
+Build Date UTC : 2020-11-04 23:44:36.021457+00:00
+-->
