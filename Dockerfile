@@ -1,9 +1,9 @@
 FROM ubuntu:18.04 as builder
 
+ARG DEBIAN_FRONTEND=noninteractive
 ENV PATH /opt/conda/bin:$PATH
 
 RUN apt-get update && \
-    apt-get upgrade -y && \
     apt-get install wget -y && \
     apt-get install gcc -y && \
     apt-get install cpp -y && \
@@ -79,8 +79,8 @@ RUN cpanm --force -i \
     chown -R root:root /usr/local/.cpanm
 
 WORKDIR /tmp
-RUN wget https://downloads.sourceforge.net/project/samtools/samtools/0.1.17/samtools-0.1.17.tar.bz2 && \
-    tar -jxf samtools-0.1.17.tar.bz2 && \
+RUN curl -L -O https://github.com/samtools/samtools/archive/0.1.17.tar.gz && \
+    tar -zxf 0.1.17.tar.gz && ls -lah && \
     cd samtools-0.1.17 && \
     sed -i "s/CFLAGS=.*$/CFLAGS= -g -Wall -O2 -fPIC/" Makefile && \
     cat Makefile && \
@@ -95,3 +95,6 @@ COPY configs /opt/cicero/configs
 
 ENV PATH /opt/cicero/src/bin:${PATH}
 ENV PERL5LIB /opt/cicero/src/perllib:${PERL5LIB}
+
+ENTRYPOINT ["Cicero.sh"]
+CMD ["-h"]
