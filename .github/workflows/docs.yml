@@ -3,7 +3,7 @@ name: Documentation
 on:
   push:
     branches:
-      - master
+      - documentation
 
 jobs:
   gh-pages:
@@ -21,9 +21,13 @@ jobs:
         run: |
           python3 -m pip install --upgrade pip
           python3 -m pip install mkdocs
-      
-      - name: Prepare Docs
-        run: cp README.md docs/index.md && sed -i.bak 's/\.\/docs/\.\//g' docs/index.md
+          python3 -m pip install mkdocs-bootswatch
       
       - name: Build Docs
         run: mkdocs build
+        
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          publish_dir: ./site
