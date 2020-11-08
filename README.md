@@ -1,61 +1,54 @@
-<div align="center">
-
-  [![Status](https://img.shields.io/badge/status-active-success.svg)](https://github.com/stjude/CICERO)
-  [![GitHub issues](https://img.shields.io/github/issues/stjude/CICERO)](https://github.com/stjude/CICERO/issues)
-  [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/stjude/CICERO)](https://github.com/stjude/CICERO/pulls)
-
-</div>
-
-
-<br />
-<br />
-
 <p align="center">
+
   <h1 align="center">
     CICERO 0.3.0
   </h1>
 
   <p align="center">
-    <a href="https://actions-badge.atrox.dev/stjudecloud/ngsderive/goto" target="_blank">
-      <img alt="Actions: CI Status"
-          src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fstjudecloud%2Fngsderive%2Fbadge&style=flat" />
-    </a>
-    <a href="https://pypi.org/project/ngsderive/" target="_blank">
-      <img alt="PyPI"
-          src="https://img.shields.io/pypi/v/ngsderive?color=orange">
-    </a>
-    <a href="https://pypi.python.org/pypi/ngsderive/" target="_blank">
-      <img alt="PyPI: Downloads"
-          src="https://img.shields.io/pypi/dm/ngsderive?color=orange">
-    </a>
-    <a href="https://pypi.python.org/pypi/ngsderive/" target="_blank">
-      <img alt="PyPI: Downloads"
-          src="https://img.shields.io/pypi/pyversions/ngsderive?color=orange">
-    </a>
-    <a href="https://github.com/stjudecloud/ngsderive/blob/master/LICENSE.md" target="_blank">
-    <img alt="License: MIT"
+   <a href="https://github.com/stjude/CICERO" target="_blank">
+     <img alt="Status"
+          src="https://img.shields.io/badge/status-active-success.svg" />
+   </a>
+   <a href="https://github.com/stjude/CICERO/issues" target="_blank">
+     <img alt="Github Issues"
+          src="https://img.shields.io/github/issues/stjude/CICERO" />
+   </a>
+   <a href="https://github.com/stjude/CICERO/pulls" target="_blank">
+     <img alt="Pull Requests"
+          src="https://img.shields.io/github/issues-pr/stjude/CICERO" />
+   </a>
+   <a href="https://actions-badge.atrox.dev/stjude/CICERO/goto" target="_blank">
+     <img alt="Actions: CI Status"
+          src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fstjude%2FCICERO%2Fbadge&style=flat" />
+   </a>
+   <a href="https://github.com/stjudecloud/ngsderive/blob/master/LICENSE.md" target="_blank">
+     <img alt="License: MIT"
           src="https://img.shields.io/badge/License-MIT-blue.svg" />
-    </a>
+   </a>
   </p>
 
 
   <p align="center">
     CICERO (Clipped-reads Extended for RNA Optimization) is an assembly-based algorithm to detect diverse classes
     of driver gene fusions from RNA-seq.
-    <br />
-    <a href="https://stjudecloud.github.io/cicero/"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/stjudecloud/cicero/issues/new?assignees=&labels=&template=feature_request.md&title=Descriptive%20Title&labels=enhancement">Request Feature</a>
-    ·
-    <a href="https://github.com/stjudecloud/cicero/issues/new?assignees=&labels=&template=bug_report.md&title=Descriptive%20Title&labels=bug">Report Bug</a>
-    ·
+   <br />
+   <a href="https://stjudecloud.github.io/cicero/"><strong>Explore the docs »</strong></a>
+   <br />
+   <a href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02043-x"><strong>Read the paper »</strong></a>
+   <br />
+   <br />
+   <a href="https://github.com/stjudecloud/cicero/issues/new?assignees=&labels=&template=feature_request.md&title=Descriptive%20Title&labels=enhancement">Request Feature</a>
+   <a href="https://github.com/stjudecloud/cicero/issues/new?assignees=&labels=&template=bug_report.md&title=Descriptive%20Title&labels=bug">Report Bug</a>
+   <br />
     ⭐ Consider starring the repo! ⭐
-    <br />
+   <br />
   </p>
 </p>
----  
+
+---
+
   <p align="center">
+  To discover driver fusions beyond canonical exon-to-exon chimeric transcripts, we develop CICERO, a local assembly-based algorithm that integrates RNA-seq read support with extensive annotation for candidate ranking. CICERO outperforms commonly used methods, achieving a 95% detection rate for 184 independently validated driver fusions including internal tandem duplications and other non-canonical events in 170 pediatric cancer transcriptomes.
    <img alt="Overview of CICERO algorithm which consists of fusion detection through analysis of candidate SV breakpoints and splice junction, fusion annotation, and ranking." src="CICERO.png"/>
   </p>
 
@@ -66,7 +59,15 @@ Add the `src/scripts` directory to your system `PATH` variable. Add the `src/per
 
 Then invoke the CICERO wrapper as
 ```
-cicero.sh [-n ncores] -b bamfile -g genome -r refdir -o outdir [-j junctions] [-t threshold] [-s sc_cutoff] [-c sc_shift] [-p]
+Cicero.sh [-h] [-n ncores] -b bamfile -g genome -r refdir [-j junctions] [-o outdir] [-t threshold] [-s sc_cutoff] [-c sc_shift] [-p] [-d]
+
+-p - optimize CICERO, sets sc_cutoff=3 and sc_shift=10 [default true]
+-s <num> - minimum number of soft clip support required [default=2]
+-t <num> - threshold for enabling increased soft clip cutoff [default=200000]
+-c <num> - clustering distance for grouping similar sites [default=3]
+-j <file> - junctions file from RNApeg
+-n <num> - number of cores to utilize with GNU parallel
+-d - disable excluded regions file use
 ```
 
 - `ncores` is the number of cores to be run on (with [GNU parallel](https://www.gnu.org/software/parallel/)).
